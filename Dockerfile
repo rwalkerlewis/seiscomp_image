@@ -10,27 +10,24 @@ RUN apt-get update \
       gfortran \
       git \
       make \
+      cmake-curses-gui \
       cmake \
       cmake-gui \
-      libpython3-dev \
-      tar \
+      libxml2-dev \
+      libfl-dev \
+      python3-dev \
+      python3-numpy \
+      libqt4-dev \
+      qtbase5-dev \
+      libmysqlclient-dev \
+      libpq-dev \
+      libsqlite3-dev \
+      ncurses-dev \
+      flex \
+      openmpi-common \
       man \
-      wget
-#      libxml2-dev \
-#      libfl-dev \
-#      python3-dev \
-#      python3-numpy \
-#      libqt4-dev \
-#      qtbase5-dev \
-#      libmysqlclient-dev \
-#      libpq-dev \
-#      libsqlite3-dev \
-#      ncurses-dev \
-#      flex \
-#      openmpi-common \
-#      man \
-#      libboost-all-dev \
-#      libqt5svg5-dev
+      libboost-all-dev \
+      libqt5svg5-dev
 
 # # --------------------------------------------------------------------------- 80
 
@@ -84,35 +81,31 @@ WORKDIR ${BASE_DIR}
 # Set variables for build
 ENV REPO_PATH=https://github.com/SeisComP
 
-#RUN echo "Cloning base repository into ${DEV_DIR}" \
-#	&& git clone ${REPO_PATH}/seiscomp.git ${DEV_DIR} \
-#	&& echo 'Cloning base components' \
-#	&& cd ${DEV_DIR}/src/base \
-#	&& git clone $REPO_PATH/seedlink.git \
-#	&& git clone $REPO_PATH/common.git \
-#	&& git clone $REPO_PATH/main.git \
-#	&& git clone $REPO_PATH/extras.git \
-#	&& echo "Cloning external base components" \
-#	&& git clone $REPO_PATH/contrib-gns.git \
-#	&& git clone $REPO_PATH/contrib-ipgp.git \
-#	&& git clone https://github.com/swiss-seismological-service/sed-SeisComP-contributions.git contrib-sed \
-#	&& echo "Done" \ 
-#	&& cd ../../
+RUN echo "Cloning base repository into ${DEV_DIR}" \
+	&& git clone ${REPO_PATH}/seiscomp.git ${DEV_DIR} \
+	&& echo 'Cloning base components' \
+	&& cd ${DEV_DIR}/src/base \
+	&& git clone $REPO_PATH/seedlink.git \
+	&& git clone $REPO_PATH/common.git \
+	&& git clone $REPO_PATH/main.git \
+	&& git clone $REPO_PATH/extras.git \
+	&& echo "Cloning external base components" \
+	&& git clone $REPO_PATH/contrib-gns.git \
+	&& git clone $REPO_PATH/contrib-ipgp.git \
+	&& git clone https://github.com/swiss-seismological-service/sed-SeisComP-contributions.git contrib-sed \
+	&& echo "Done" \ 
+	&& cd ../../
 
 # --------------------------------------------------------------------------- 80
 # Build Seiscomp
 USER ${SEISCOMP_USER}
 WORKDIR ${BUILD_DIR}
-ENV SEISCOMP_VERSION=5.5.5
 
-RUN wget https://www.seiscomp.de/downloader/seiscomp-${SEISCOMP_VERSION}-ubuntu22.04-x86_64.tar.gz \
-	&& tar xzf seiscomp-${SEISCOMP_VERSION}-ubuntu22.04-x86_64.tar.gz \
-	&& wget https://www.seiscomp.de/downloader/seiscomp-maps.tar.gz \
-	&& tar seiscomp-maps.tar.gz
-
-#RUN cd ${BUILD_DIR} \
-#	&& cmake -DCMAKE_INSTALL_PREFIX=${BUILD_DIR} ${DEV_DIR} \
-#	&& make install
+RUN cd ${BUILD_DIR} \
+	&& mkdir build \
+	&& cd build \
+	&& cmake -DCMAKE_INSTALL_PREFIX=${BUILD_DIR} ${DEV_DIR} \
+	&& make install
 
 
 #RUN rm -fr /var/lib/apt /var/lib/dpkg /var/lib/cache /var/lib/log
