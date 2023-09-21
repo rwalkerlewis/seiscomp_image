@@ -1,5 +1,5 @@
 ARG BUILD_ENV=nocerts
-FROM ubuntu:22.04 as os-update
+FROM ubuntu:20.04 as os-update
 MAINTAINER Robert Walker <rainbowseismic@gmail.com>
 
 ENV BUILD_ENV=${BUILD_ENV}
@@ -10,14 +10,12 @@ RUN apt-get update \
       gfortran \
       git \
       make \
-      cmake-curses-gui \
       cmake \
       cmake-gui \
       libxml2-dev \
       libfl-dev \
       python3-dev \
       python3-numpy \
-      libqt4-dev \
       qtbase5-dev \
       libmysqlclient-dev \
       libpq-dev \
@@ -25,9 +23,12 @@ RUN apt-get update \
       ncurses-dev \
       flex \
       openmpi-common \
+      sudo \
       man \
       libboost-all-dev \
-      libqt5svg5-dev
+      libqt5svg5-dev \
+      cmake-curses-gui \
+      libssl-dev
 
 # # --------------------------------------------------------------------------- 80
 
@@ -102,7 +103,7 @@ USER ${SEISCOMP_USER}
 WORKDIR ${BUILD_DIR}
 
 RUN cd ${BUILD_DIR} \
-	&& mkdir build \
+	&& mkdir -p build \
 	&& cd build \
 	&& cmake -DCMAKE_INSTALL_PREFIX=${BUILD_DIR} ${DEV_DIR} \
 	&& make install
