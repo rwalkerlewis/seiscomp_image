@@ -7,8 +7,10 @@ ENV BUILD_ENV=${BUILD_ENV}
 RUN apt-get update \
     && DEBIAN_FRONTEND="noninteractive" apt-get install -y \
       g++ \
+      gfortran \
       git \
       make \
+      ccmake \
       cmake \
       cmake-gui \
       libxml2-dev \
@@ -22,7 +24,10 @@ RUN apt-get update \
       libsqlite3-dev \
       ncurses-dev \
       flex \
-      openmpi-common
+      openmpi-common \
+      man \
+      libboost-all-dev \
+      libqt5svg5-dev
 
 # # --------------------------------------------------------------------------- 80
 
@@ -64,6 +69,11 @@ RUN mkdir $DEV_DIR \
   && chown -R $SEISCOMP_USER $BUILD_DIR \
   && chgrp -R $SEISCOMP_USER $BUILD_DIR
 
+# Create sysop
+RUN adduser sysop \
+	&& addgroup admin \
+	&& usermod -a -G admin,adm,audio sysop
+
 # --------------------------------------------------------------------------- 80
 # Collect SeisComp Source
 USER ${SEISCOMP_USER}
@@ -91,9 +101,8 @@ RUN echo "Cloning base repository into ${DEV_DIR}" \
 USER ${SEISCOMP_USER}
 WORKDIR ${BUILD_DIR}
 
-RUN mkdir sc-build \
-	&& cd sc-build \
-	&& ccmake ${DEV_DIR} \
+RUN cd ${BUILD_DIR} \
+	&& cmake -DCMAKE_INSTALL_PREFIX=${BUILD_DIR} ${DEV_DIR} \
 	&& make install
 
 
