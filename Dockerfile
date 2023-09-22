@@ -28,7 +28,32 @@ RUN apt-get update \
       libboost-all-dev \
       libqt5svg5-dev \
       cmake-curses-gui \
-      libssl-dev
+      libssl-dev \
+      wget \
+      libgpm2 \
+      libmariadb3 \
+      libtinfo5 \
+      libncurses5 \
+      mariadb-common \
+      galera-3 \
+      gawk \
+      iproute2 libaio1 libatm1 libcap2-bin libcgi-fast-perl \
+	  libcgi-pm-perl libconfig-inifiles-perl libdbd-mysql-perl libdbi-perl \
+  libencode-locale-perl libfcgi-perl libhtml-parser-perl libhtml-tagset-perl \
+  libhtml-template-perl libhttp-date-perl libhttp-message-perl libio-html-perl \
+  liblwp-mediatypes-perl libmnl0 libpam-cap libpopt0 libreadline5 libsnappy1v5 \
+  libterm-readkey-perl libtimedate-perl liburi-perl libwrap0 libxtables12 lsof \
+  mariadb-client mariadb-client-10.3 mariadb-client-core-10.3 mariadb-server \
+  mariadb-server-10.3 mariadb-server-core-10.3 psmisc rsync socat \
+  python3-attr python3-automat python3-cffi-backend python3-click \
+  python3-colorama python3-constantly python3-cryptography python3-dateutil \
+  python3-hamcrest python3-hyperlink python3-idna python3-incremental \
+  python3-openssl python3-pyasn1 python3-pyasn1-modules \
+  python3-service-identity python3-six python3-twisted python3-twisted-bin \
+  python3-zope.interface \
+  screen
+
+
 
 # # --------------------------------------------------------------------------- 80
 
@@ -111,6 +136,26 @@ RUN cd ${BUILD_DIR} \
 
 #RUN rm -fr /var/lib/apt /var/lib/dpkg /var/lib/cache /var/lib/log
 
-WORKDIR $HOME
+
+# --------------------------------------------------------------------------- 80
+# Build Environment
+
+USER ${SEISCOMP_USER}
+WORKDIR ${BUILD_DIR}
+
+#ZRUN ./bin/seiscomp print env  > ~/.bashrc 
+
+
+# --------------------------------------------------------------------------- 80
+# Build Database
+USER ${SEISCOMP_USER}
+WORKDIR ${HOME}
+ENV SQLPWD=Password
+
+#RUN ./bin/seiscomp install-deps base mariadb-server gui \
+#	&& /etc/init.d/mysql start 
+#	&& mysql -e "SET old_passwords=0; ALTER USER root@localhost IDENTIFIED BY '${SQLPWD}'; FLUSH PRIVILEGES;" 
+	
+
 
 CMD /bin/bash

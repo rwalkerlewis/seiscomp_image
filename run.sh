@@ -2,7 +2,7 @@
 
 #docker run --rm -it seiscomp
 
-export seiscomp_path=${HOME}/projects/seiscomp
+export seiscomp_path=${HOME}/Projects/seiscomp
 
 # docker run --name seiscomp-dev --rm -it -v ${seiscomp_path}:/home/seiscomp-user seiscomp
 docker run -e DISPLAY=unix$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
