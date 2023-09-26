@@ -38,6 +38,7 @@ RUN apt-get update \
       mariadb-common \
       galera-3 \
       gawk \
+      screen \
       iproute2 libaio1 libatm1 libcap2-bin libcgi-fast-perl \
 	  libcgi-pm-perl libconfig-inifiles-perl libdbd-mysql-perl libdbi-perl \
   libencode-locale-perl libfcgi-perl libhtml-parser-perl libhtml-tagset-perl \

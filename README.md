@@ -10,6 +10,8 @@ Here is what it gives:
 4. SeisComP build from source
 5. A dataless SEED and stationXML file for the CI network for 
    Southern California (BH* only)
+6. X11 support (GUI tools like SCMV, SCRTTV work)
+7. Screen (for multiple terminals/GUI windows)
 
 Here is what it DOES NOT give:
 1. This DOES NOT set environment variables (see housekeeping.sh)
@@ -27,5 +29,5 @@ Here is what it DOES NOT give:
 8. Load CI stationXML/DSLV via SCConfig or other means
 9. Set up parameter files for run and commence run (as outlined in the SeisComP documentation).
 
-## Note:
+## Notes:
 - The `build_seiscomp.sh` file is for reference and not to be used (dockerfile auto builds seiscomp)
