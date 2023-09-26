@@ -33,6 +33,7 @@ RUN apt-get update \
       libgpm2 \
       libmariadb3 \
       libtinfo5 \
+      nano \
       libncurses5 \
       mariadb-common \
       galera-3 \
