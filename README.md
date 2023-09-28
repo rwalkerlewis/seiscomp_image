@@ -24,10 +24,11 @@ Here is what it DOES NOT give:
 3. And run `chmod +x run.sh`
 4. Run `./build.sh`
 5. Run `./run.sh`
-6. Run `chmod +x housekeeping.sh`
-7. Setup database for seiscomp using SCConfig
-8. Load CI stationXML/DSLV via SCConfig or other means
-9. Set up parameter files for run and commence run (as outlined in the SeisComP documentation).
+  - Adjust the $seiscomp_path variable to fit your local structure (or modify the docker run command)
+7. Run `chmod +x housekeeping.sh`
+8. Setup database for seiscomp using SCConfig
+9. Load CI stationXML/DSLV via SCConfig or other means
+10. Set up parameter files for run and commence run (as outlined in the SeisComP documentation).
 
 ## Notes:
 - The `build_seiscomp.sh` file is for reference and not to be used (dockerfile auto builds seiscomp)
